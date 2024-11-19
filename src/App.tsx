@@ -11,17 +11,29 @@ import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
 
-function App() {
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [topic, setTopic] = useState("");
-  const [totalPages, setTotalPages] = useState(0);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImageUrl, setSelectedImageUrl] = useState({});
+interface Photo {
+  id: string;
+  imageUrl: string;
+  author: string;
+  description: string;
+}
 
-  const handleSearch = async (newTopic) => {
+interface ApiResponse {
+  results: Photo[];
+  total_pages: number;
+}
+
+function App() {
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [topic, setTopic] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<Photo | null>(null);
+
+  const handleSearch = async (newTopic: string) => {
     setPhotos([]);
     setPage(1);
     setTopic(newTopic);
@@ -32,13 +44,13 @@ function App() {
     setPage(page + 1);
   };
 
-  const handleImageClick = (imageData) => {
-    setSelectedImageUrl(imageData); // Встановлюємо URL вибраного зображення
-    setModalIsOpen(true); // Відкриваємо модальне вікно
+  const handleImageClick = (imageData: Photo) => {
+    setSelectedImageUrl(imageData);
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
-    setModalIsOpen(false); // Закриваємо модальне вікно
+    setModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -49,7 +61,10 @@ function App() {
       try {
         setLoading(true);
         setError(false);
-        const { results, total_pages } = await fetchPhotos(topic, page);
+        const { results, total_pages }: ApiResponse = await fetchPhotos(
+          topic,
+          page
+        );
         if (page === 1) {
           setTotalPages(total_pages);
         }
@@ -97,13 +112,15 @@ function App() {
             position: "relative",
           }}
         />
-        <ImageModal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          imageUrl={selectedImageUrl.imageUrl}
-          author={selectedImageUrl.author}
-          description={selectedImageUrl.description}
-        />
+        {selectedImageUrl && (
+          <ImageModal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            imageUrl={selectedImageUrl.imageUrl}
+            author={selectedImageUrl.author}
+            description={selectedImageUrl.description}
+          />
+        )}
       </div>
     </div>
   );
