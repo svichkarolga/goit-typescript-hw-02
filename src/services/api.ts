@@ -4,7 +4,7 @@ import ApiResponse from "../App";
 axios.defaults.baseURL = "https://api.unsplash.com";
 const CLIENT_ID = "51zLVqzMW1IyaGydfIDPgkvKGcvx2JDVAUCKiVuXH0o";
 
-interface Photo {
+export interface Photo {
   id: string;
   urls: {
     small: string;

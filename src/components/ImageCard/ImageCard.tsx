@@ -1,13 +1,35 @@
 import React from "react";
 import styles from "./ImageCard.module.css";
 
-const ImageCard = ({ data, onImageClick }) => {
+interface Photo {
+  id: string;
+  urls: {
+    regular: string;
+    small: string;
+  };
+  user: {
+    name: string;
+  };
+  description: string | null;
+  alt_description: string | null;
+  likes: number;
+}
+
+interface ImageCardProps {
+  data: Photo;
+  onImageClick: (imageData: {
+    imageUrl: string;
+    author: string;
+    description: string | null;
+  }) => void;
+}
+const ImageCard: React.FC<ImageCardProps> = ({ data, onImageClick }) => {
   const handleClick = () => {
     console.log("Full image URL:", data.urls.regular);
     onImageClick({
       imageUrl: data.urls.regular,
       author: data.user.name,
-      description: data.description,
+      description: data.alt_description,
     });
   };
   return (
@@ -16,7 +38,7 @@ const ImageCard = ({ data, onImageClick }) => {
         className={styles.photoCard}
         src={data.urls.small}
         alt={data.alt_description}
-        onClick={handleClick} // Використовуємо функцію handleClick
+        onClick={handleClick}
         style={{ cursor: "pointer" }}
       />
 
