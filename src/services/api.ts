@@ -15,17 +15,12 @@ interface Photo {
   description: string | null;
 }
 
-// interface ApiResponse {
-//   results: Photo[];
-//   total_pages: number;
-// }
-
-export const fetchPhotos = async (
+export const fetchPhotos = async <T>(
   topic: string,
   currentPage: number
-): Promise<typeof ApiResponse> => {
+): Promise<T> => {
   try {
-    const response = await axios.get<typeof ApiResponse>(
+    const response = await axios.get<T>(
       `/search/photos?client_id=${CLIENT_ID}&query=${topic}&page=${currentPage}&per_page=12`
     );
     console.log(response);
