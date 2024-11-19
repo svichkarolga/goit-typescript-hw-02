@@ -18,7 +18,7 @@ interface Photo {
   description: string;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   results: Photo[];
   total_pages: number;
 }
