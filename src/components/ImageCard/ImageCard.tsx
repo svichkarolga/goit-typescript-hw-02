@@ -23,6 +23,7 @@ interface ImageCardProps {
     description: string | null;
   }) => void;
 }
+
 const ImageCard: React.FC<ImageCardProps> = ({ data, onImageClick }) => {
   const handleClick = () => {
     console.log("Full image URL:", data.urls.regular);
@@ -37,7 +38,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ data, onImageClick }) => {
       <img
         className={styles.photoCard}
         src={data.urls.small}
-        alt={data.alt_description}
+        alt={data.alt_description || "No description available"}
         onClick={handleClick}
         style={{ cursor: "pointer" }}
       />

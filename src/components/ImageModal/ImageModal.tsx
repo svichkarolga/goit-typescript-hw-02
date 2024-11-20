@@ -3,7 +3,15 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const ImageModal = ({
+interface ImageGalleryProps {
+  isOpen: boolean;
+  onRequestClose: any;
+  imageUrl: string;
+  author: string;
+  description: string;
+}
+
+const ImageModal: React.FC<ImageGalleryProps> = ({
   isOpen,
   onRequestClose,
   imageUrl,
@@ -13,7 +21,7 @@ const ImageModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose} // Закривається при натисканні на Esc або за межі модалки
+      onRequestClose={onRequestClose}
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -27,7 +35,7 @@ const ImageModal = ({
           zIndex: "2000",
           marginRight: "-50%",
           transform: "translate(-50%, -50%)",
-          padding: "20px", // Без відступів для зображення
+          padding: "20px",
           border: "1px solid black",
           maxWidth: "90vw",
           maxHeight: "90vh",
