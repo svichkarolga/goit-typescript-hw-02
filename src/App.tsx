@@ -10,28 +10,31 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
+import Photo from "./components/ImageGallery/ImageGallery";
 
-interface Photo {
-  id: string;
-  imageUrl: string;
-  author: string;
-  description: string;
-}
+// export interface Photo {
+//   id: string;
+//   imageUrl: string;
+//   author: string;
+//   description: string;
+// }
 
 export interface ApiResponse {
-  results: Photo[];
+  results: (typeof Photo)[];
   total_pages: number;
 }
 
 function App() {
-  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photos, setPhotos] = useState<(typeof Photo)[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [topic, setTopic] = useState<string>("");
   const [totalPages, setTotalPages] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedImageUrl, setSelectedImageUrl] = useState<Photo | null>(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<typeof Photo | null>(
+    null
+  );
 
   const handleSearch = async (newTopic: string) => {
     setPhotos([]);
@@ -44,7 +47,7 @@ function App() {
     setPage(page + 1);
   };
 
-  const handleImageClick = (imageData: Photo) => {
+  const handleImageClick = (imageData: typeof Photo) => {
     setSelectedImageUrl(imageData);
     setModalIsOpen(true);
   };

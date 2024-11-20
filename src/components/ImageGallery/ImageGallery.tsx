@@ -2,7 +2,7 @@ import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
-interface Photo {
+export interface Photo {
   id: string;
   urls: {
     regular: string;
