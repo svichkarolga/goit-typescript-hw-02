@@ -3,15 +3,15 @@ import Modal from "react-modal";
 
 Modal.setAppElement("#root");
 
-interface ImageGalleryProps {
+interface ImageModalProps {
   isOpen: boolean;
   onRequestClose: any;
   imageUrl: string;
   author: string;
-  description: string;
+  description: string | null;
 }
 
-const ImageModal: React.FC<ImageGalleryProps> = ({
+const ImageModal: React.FC<ImageModalProps> = ({
   isOpen,
   onRequestClose,
   imageUrl,

@@ -1,27 +1,10 @@
 import React from "react";
 import styles from "./ImageCard.module.css";
-
-interface Photo {
-  id: string;
-  urls: {
-    regular: string;
-    small: string;
-  };
-  user: {
-    name: string;
-  };
-  description: string | null;
-  alt_description: string | null;
-  likes: number;
-}
+import { ModalProps, Photo } from "../../types";
 
 interface ImageCardProps {
   data: Photo;
-  onImageClick: (imageData: {
-    imageUrl: string;
-    author: string;
-    description: string | null;
-  }) => void;
+  onImageClick: (imageData: ModalProps) => void;
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ data, onImageClick }) => {
