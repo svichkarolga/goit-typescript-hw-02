@@ -25,7 +25,9 @@ function App() {
   const [topic, setTopic] = useState<string>("");
   const [totalPages, setTotalPages] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [selectedImageUrl, setSelectedImageUrl] = useState<Photo | null>(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<ModalProps | null>(
+    null
+  );
 
   const handleSearch = async (newTopic: string) => {
     setPhotos([]);
